@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
 export class RouterService {
   constructor(private _router: Router) {}
 
-  public routeToLoginPage() {
-    this._router.navigate(['/login']);
+  public routeToLoginPage(): UrlTree {
+    return this._router.parseUrl('/login');
+  }
+
+  public routeToHomePage() {
+    this._router.navigate(['/home-page']);
   }
 }
