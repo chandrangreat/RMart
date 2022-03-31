@@ -17,9 +17,8 @@ export class AuthGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!localStorage.getItem('token')) {
-      this._routerService.routeToLoginPage();
-      return false;
+    if (!localStorage.getItem('accessToken')) {
+      return this._routerService.routeToLoginPage();
     }
     return true;
   }
