@@ -1,0 +1,9 @@
+.login-form-container {
+  height: 90vh;
+}
+
+.login-form-wrapper {
+  width: 500px;
+  padding: 5em;
+  background-color: #e3f2fd;
+}
