@@ -31,7 +31,12 @@ export class LoginComponent implements OnInit {
           this._routerService.routeToHomePage();
         },
         error: (err: HttpErrorResponse) => {
-          this.errorMessage = err.error;
+          console.log(err);
+          if (err.status === 0) {
+            this.errorMessage = err.statusText;
+          } else {
+            this.errorMessage = err.error;
+          }
         },
       });
     }
