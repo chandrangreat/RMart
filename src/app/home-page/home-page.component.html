@@ -1,1 +1,29 @@
-<p>home-page works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <div class="category-container">
+        <div class="category-section-title d-flex justify-content-center align-items-center py-2 mx-3">
+          <h5>Categories</h5>
+        </div>
+        <div class="categories">
+          <ul class="py-3">
+            <ng-container *ngFor="let category of categories">
+              <li class="my-2 p-2" [ngClass]="{'selected': selectedCategory===category.id}"
+                (click)="loadProductsOfCategory(category)">{{category.name}}</li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="product-category-title p-3">
+        <h3>{{selectedCategoryTitle}}</h3>
+      </div>
+      <div class="products-container d-flex flex-wrap">
+        <ng-container *ngFor="let product of products$ | async">
+          <app-product-card [product]="product"></app-product-card>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
