@@ -9,61 +9,61 @@
   "products": [
     {
       "id": 1,
-      "name": "Men's CRI Hase Cricket Shoe",
+      "name": "Men's Cricket Shoe",
       "description": "Mens cricket shoes with lace up closure",
       "quantity": 20,
       "price": 2399,
-      "category": "shoes",
+      "categoryId": "shoes",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     },
     {
       "id": 2,
-      "name": "Men's CRI Hase Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Men's Shirt",
+      "description": "Mens cricket shirt with lace up closure",
       "quantity": 20,
       "price": 500,
-      "category": "shirts",
+      "categoryId": "shirts",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     },
     {
       "id": 3,
-      "name": "Men's CRI Hase Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Men's Pants",
+      "description": "Mens cricket pants with lace up closure",
       "quantity": 20,
       "price": 4600,
-      "category": "pants",
+      "categoryId": "pants",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     },
     {
       "id": 4,
-      "name": "Men's CRI Hase Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Men's Jeans",
+      "description": "Mens cricket jeans with lace up closure",
       "quantity": 20,
       "price": 400,
-      "category": "jeans",
+      "categoryId": "jeans",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     },
     {
       "id": 5,
-      "name": "Men's CRI Hase Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Men's Socks",
+      "description": "Mens cricket socks with lace up closure",
       "quantity": 20,
       "price": 500,
-      "category": "socks",
+      "categoryId": "socks",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     },
     {
       "id": 6,
-      "name": "Men's CRI Hase Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Men's Jackets",
+      "description": "Mens cricket jackets with lace up closure",
       "quantity": 20,
       "price": 600,
-      "category": "jackets",
+      "categoryId": "jackets",
       "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
       "userId": 1
     }
