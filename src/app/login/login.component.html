@@ -15,9 +15,14 @@
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input required type="password" name="password" formControlName="password" class="form-control"
-              id="password" />
+              id="password" [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || password?.touched)}" />
+            <div class="my-2 invalid-server-feedback"
+              *ngIf="password?.errors && (password?.dirty || password?.touched)">
+              Password required
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
+          <h1>{{password?.errors | json}}</h1>
           <div class="my-2 invalid-server-feedback" *ngIf="errorMessage">
             {{errorMessage}}
           </div>
