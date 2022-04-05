@@ -14,4 +14,8 @@ export class RouterService {
   public routeToHomePage() {
     this._router.navigate(['/home-page']);
   }
+
+  public routeToCart() {
+    this._router.navigate(['/cart']);
+  }
 }

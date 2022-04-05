@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">RMART</a>
     <ng-container *ngIf="cart$ | async as cart">
-      <button *ngIf="showCart" class="btn btn-primary header-cart-button">
+      <button *ngIf="showCart" class="btn btn-primary header-cart-button" (click)="goToCart()">
         <i class="fa fa-shopping-cart position-relative">
           <span *ngIf="cart.totalCartItems > 0"
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger header-cart-badge">
