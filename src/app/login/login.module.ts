@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +18,7 @@ import { LoginService } from './services/login.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
   ],
   providers: [LoginService],
 })

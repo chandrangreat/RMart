@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -21,6 +22,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     HomePageRoutingModule,
     HttpClientModule,
+    SharedModule,
     ModalModule.forRoot(),
   ],
   providers: [ProductService],
