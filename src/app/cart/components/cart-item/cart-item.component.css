@@ -1,0 +1,22 @@
+.cart-item {
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.cart-product-image {
+    margin-right: 25px;
+}
+
+.cart-product-details {
+    margin: 0 15px;
+    width: 40%;
+}
+
+.cart-controls {
+    margin: 0 15px;
+}
+
+.cart-product-total-price {
+    margin: 0 25px;
+}

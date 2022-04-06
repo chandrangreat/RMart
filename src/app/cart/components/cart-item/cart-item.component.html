@@ -1,0 +1,19 @@
+<div class="cart-item d-flex py-3">
+  <div class="cart-product-image">
+    <img [src]="cartProduct?.img" width="200" height="200" class="img-thumbnail" [alt]="cartProduct?.name">
+  </div>
+  <div class="cart-product-details">
+    <h5>{{cartProduct?.name}}</h5>
+    <p class="fw-bold">{{cartProduct?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
+  </div>
+  <div class="cart-controls">
+    <button class="btn  btn-outline-dark btn-sm" (click)="decrementQuantity()"><i class="fa fa-minus"
+        aria-hidden="true"></i></button>
+    <span class="mx-3">{{cartProduct?.cartProductQuantity}}</span>
+    <button class="btn  btn-outline-dark btn-sm" (click)="incrementQuantity()"><i class="fa fa-plus"
+        aria-hidden="true"></i></button>
+  </div>
+  <div class="cart-product-total-price">
+    <p class="fw-bold">{{cartProduct?.cartProductPrice| currency: 'INR':'symbol':'1.0-0'}}</p>
+  </div>
+</div>

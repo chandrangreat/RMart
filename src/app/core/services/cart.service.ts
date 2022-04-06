@@ -33,7 +33,7 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
-  updateCart(product: CartProduct, cartAction: string): void {
+  updateCart(product: CartProduct, cartAction: string = 'INCREMENT'): void {
     if (cartAction === 'INCREMENT') {
       product.cartProductPrice = product.cartProductPrice + product.price;
       product.cartProductQuantity = product.cartProductQuantity + 1;
@@ -43,8 +43,12 @@ export class CartService {
     } else {
       product.cartProductPrice = product.cartProductPrice - product.price;
       product.cartProductQuantity = product.cartProductQuantity - 1;
-      this.cart.cartProducts = this._updateProductInCart(product);
-      // this.cart.totalCartItems = this.cart.totalCartItems - 1;
+      if (product.cartProductQuantity !== 0) {
+        this.cart.cartProducts = this._updateProductInCart(product);
+      } else {
+        this.cart.cartProducts = this._updateProductInCart(product, true);
+        this.cart.totalCartItems = this.cart.totalCartItems - 1;
+      }
       this.cart.totalCartPrice = this.cart.totalCartPrice - product.price;
     }
     this.cartSubject$.next(this.cart);
@@ -52,12 +56,11 @@ export class CartService {
   }
 
   addItemToCart(product: CartProduct): void {
-    const filteredCartProducts = this.cart.cartProducts.filter(
-      (item) => item.id === product.id
-    );
-
+    const filteredCartProducts: Array<CartProduct> =
+      this.cart.cartProducts.filter((item) => item.id === product.id);
     if (filteredCartProducts.length > 0) {
-      this.updateCart(product, 'INCREMENT');
+      const cartProduct = filteredCartProducts[0];
+      this.updateCart(cartProduct, 'INCREMENT');
     } else {
       product.cartProductPrice = product.price;
       product.cartProductQuantity = 1;
@@ -73,7 +76,15 @@ export class CartService {
     return this.cartSubject$;
   }
 
-  private _updateProductInCart(product: CartProduct): CartProduct[] {
+  private _updateProductInCart(
+    product: CartProduct,
+    removeProduct?: boolean
+  ): CartProduct[] {
+    if (removeProduct) {
+      return this.cart.cartProducts.filter(
+        (cartProduct) => cartProduct.id !== product.id
+      );
+    }
     return this.cart.cartProducts.map((cartProduct) => {
       if (cartProduct.id === product.id) {
         return product;
