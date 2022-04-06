@@ -9,18 +9,18 @@
   "products": [
     {
       "id": 1,
-      "name": "Men's Cricket Shoe",
-      "description": "Mens cricket shoes with lace up closure",
+      "name": "Cricket Shoes",
+      "description": "Cricket shoes with lace up closure",
       "quantity": 20,
       "price": 2399,
       "categoryId": "shoes",
-      "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+      "img": "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2679&q=80",
       "userId": 1
     },
     {
       "id": 2,
-      "name": "Men's Shirt",
-      "description": "Mens cricket shirt with lace up closure",
+      "name": "Formal Shirt",
+      "description": "Formal shirt with lace up closure",
       "quantity": 20,
       "price": 500,
       "categoryId": "shirts",
@@ -29,8 +29,8 @@
     },
     {
       "id": 3,
-      "name": "Men's Pants",
-      "description": "Mens cricket pants with lace up closure",
+      "name": "Formal Pants",
+      "description": "Formal pants with lace up closure",
       "quantity": 20,
       "price": 4600,
       "categoryId": "pants",
@@ -39,8 +39,8 @@
     },
     {
       "id": 4,
-      "name": "Men's Jeans",
-      "description": "Mens cricket jeans with lace up closure",
+      "name": "Jeans",
+      "description": "Jeans with lace up closure",
       "quantity": 20,
       "price": 400,
       "categoryId": "jeans",
@@ -49,8 +49,8 @@
     },
     {
       "id": 5,
-      "name": "Men's Socks",
-      "description": "Mens cricket socks with lace up closure",
+      "name": "Socks",
+      "description": "Socks with lace up closure",
       "quantity": 20,
       "price": 500,
       "categoryId": "socks",
@@ -59,7 +59,7 @@
     },
     {
       "id": 6,
-      "name": "Men's Jackets",
+      "name": "Jackets",
       "description": "Evolite offers a stylish range of Loafers,Sports & Casual Shoes by keeping the market trend in mind. These Loafers has a durable and comfortable sole to keep the foot comfortable. \n\n About the Product : Designed For Fitness-Conscious Men, With an excellent design, this pair of shoes is an elegant choice for all fashion-savvy men.Complete your smart outfit matching these shoes with a slim shirt and a pair of trousers.The sole promises great traction on the surface, thus promising ultimate comfort, whereas the perforated design is for added appeal. These Sports Shoes Offer Great Comfort, Cushioning And Stability. A Must-Have In Your Footwear Collection, These Sports Shoes Will Surely Help Improve Your Performance. Buy Today From Shopclues.com To Make A Style Statement.",
       "quantity": 20,
       "price": 600,
