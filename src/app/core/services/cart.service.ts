@@ -40,17 +40,15 @@ export class CartService {
       this.cart.cartProducts = this._updateProductInCart(product);
       // this.cart.totalCartItems = this.cart.totalCartItems + 1;
       this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
-      this.cartSubject$.next(this.cart);
-      this.updateCartInLocalStorage();
     } else {
       product.cartProductPrice = product.cartProductPrice - product.price;
       product.cartProductQuantity = product.cartProductQuantity - 1;
       this.cart.cartProducts = this._updateProductInCart(product);
       // this.cart.totalCartItems = this.cart.totalCartItems - 1;
       this.cart.totalCartPrice = this.cart.totalCartPrice - product.price;
-      this.cartSubject$.next(this.cart);
-      this.updateCartInLocalStorage();
     }
+    this.cartSubject$.next(this.cart);
+    this.updateCartInLocalStorage();
   }
 
   addItemToCart(product: CartProduct): void {
