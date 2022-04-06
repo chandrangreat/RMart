@@ -2,6 +2,10 @@
   margin: 20px;
 }
 
+.product-card-image {
+  height: 12rem;
+}
+
 .product-card-image:hover {
   cursor: pointer;
 }
