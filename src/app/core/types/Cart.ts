@@ -8,5 +8,5 @@ export interface CartProduct extends Product {
 export interface Cart {
   totalCartPrice: number;
   totalCartItems: number;
-  cartproducts: Array<CartProduct>;
+  cartProducts: Array<CartProduct>;
 }

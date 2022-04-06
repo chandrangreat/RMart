@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  cart: Cart = { totalCartItems: 0, totalCartPrice: 0, cartproducts: [] };
+  cart: Cart = { totalCartItems: 0, totalCartPrice: 0, cartProducts: [] };
 
   cartSubject$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>(this.cart);
 
@@ -37,12 +37,7 @@ export class CartService {
     if (cartAction === 'INCREMENT') {
       product.cartProductPrice = product.cartProductPrice + product.price;
       product.cartProductQuantity = product.cartProductQuantity + 1;
-      this.cart.cartproducts = this.cart.cartproducts.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
-          return product;
-        }
-        return cartProduct;
-      });
+      this.cart.cartProducts = this._updateProductInCart(product);
       // this.cart.totalCartItems = this.cart.totalCartItems + 1;
       this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
       this.cartSubject$.next(this.cart);
@@ -50,12 +45,7 @@ export class CartService {
     } else {
       product.cartProductPrice = product.cartProductPrice - product.price;
       product.cartProductQuantity = product.cartProductQuantity - 1;
-      this.cart.cartproducts = this.cart.cartproducts.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
-          return product;
-        }
-        return cartProduct;
-      });
+      this.cart.cartProducts = this._updateProductInCart(product);
       // this.cart.totalCartItems = this.cart.totalCartItems - 1;
       this.cart.totalCartPrice = this.cart.totalCartPrice - product.price;
       this.cartSubject$.next(this.cart);
@@ -64,7 +54,7 @@ export class CartService {
   }
 
   addItemToCart(product: CartProduct): void {
-    const filteredCartProducts = this.cart.cartproducts.filter(
+    const filteredCartProducts = this.cart.cartProducts.filter(
       (item) => item.id === product.id
     );
 
@@ -73,7 +63,7 @@ export class CartService {
     } else {
       product.cartProductPrice = product.price;
       product.cartProductQuantity = 1;
-      this.cart.cartproducts.push(product);
+      this.cart.cartProducts.push(product);
       this.cart.totalCartItems = this.cart.totalCartItems + 1;
       this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
       this.cartSubject$.next(this.cart);
@@ -83,5 +73,14 @@ export class CartService {
 
   getCart(): BehaviorSubject<Cart> {
     return this.cartSubject$;
+  }
+
+  private _updateProductInCart(product: CartProduct): CartProduct[] {
+    return this.cart.cartProducts.map((cartProduct) => {
+      if (cartProduct.id === product.id) {
+        return product;
+      }
+      return cartProduct;
+    });
   }
 }
