@@ -9,3 +9,7 @@
 .product-card-image:hover {
   cursor: pointer;
 }
+
+.cart-quantity-container {
+  padding: 4px;
+}

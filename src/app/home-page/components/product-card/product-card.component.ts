@@ -12,6 +12,8 @@ import { CartProduct } from '../../../core/types/Cart';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product?: Product;
+  cartProduct: CartProduct = {} as CartProduct;
+  showAddToCart: boolean = true;
   bsModalRef?: BsModalRef;
 
   constructor(
@@ -19,7 +21,19 @@ export class ProductCardComponent implements OnInit {
     private cartService: CartService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartService.cartSubject$.asObservable().subscribe((cart) => {
+      this.cartProduct = cart.cartProducts.filter(
+        (cartProduct) => cartProduct.id === this.product?.id
+      )[0];
+
+      if (!this.cartProduct || this.cartProduct.cartProductQuantity === 0) {
+        this.showAddToCart = true;
+      } else {
+        this.showAddToCart = false;
+      }
+    });
+  }
 
   openProductModal() {
     const initialState: ModalOptions = {
@@ -36,5 +50,9 @@ export class ProductCardComponent implements OnInit {
 
   additemToCart() {
     this.cartService.addItemToCart(this.product as CartProduct);
+  }
+
+  updateCartProductQuantity(action: string) {
+    this.cartService.updateCart(this.cartProduct, action);
   }
 }
