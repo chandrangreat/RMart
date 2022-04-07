@@ -8,6 +8,7 @@ import { CartProduct } from '../../../core/types/Cart';
 })
 export class CartItemComponent implements OnInit {
   @Input() cartProduct?: CartProduct;
+  @Input() isDisplayedAsItemSummary?: boolean = true;
   @Output() updateCartQuantityEvent: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
