@@ -15,17 +15,10 @@ export class CartItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  decrementQuantity() {
+  updateCartProductQuantity(action: string) {
     this.updateCartQuantityEvent.emit({
       cartProduct: this.cartProduct,
-      action: 'DECREMENT',
-    });
-  }
-
-  incrementQuantity() {
-    this.updateCartQuantityEvent.emit({
-      cartProduct: this.cartProduct,
-      action: 'INCREMENT',
+      action: action,
     });
   }
 }

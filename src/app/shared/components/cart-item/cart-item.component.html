@@ -7,11 +7,8 @@
     <span class="fw-bold">{{cartProduct?.price | currency: 'INR':'symbol':'1.0-0'}}</span>
   </div>
   <div *ngIf="isDisplayedAsItemSummary" class="cart-controls">
-    <button class="btn  btn-outline-dark btn-sm" (click)="decrementQuantity()"><i class="fa fa-minus"
-        aria-hidden="true"></i></button>
-    <span class="mx-3">{{cartProduct?.cartProductQuantity}}</span>
-    <button class="btn  btn-outline-dark btn-sm" (click)="incrementQuantity()"><i class="fa fa-plus"
-        aria-hidden="true"></i></button>
+    <app-cart-quantity (updateCartQuantityEvent)="updateCartProductQuantity($event)"
+      [cartProductQuantity]="cartProduct?.cartProductQuantity"></app-cart-quantity>
   </div>
   <div *ngIf="!isDisplayedAsItemSummary" class="cart-controls">
     <span class="mx-3">QTY: {{cartProduct?.cartProductQuantity}}</span>
