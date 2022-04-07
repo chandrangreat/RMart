@@ -3,11 +3,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-cart-quantity',
   template: `
-    <button class="btn  btn-outline-dark btn-sm" (click)="decrementQuantity()">
+    <button
+      class="btn  btn-outline-secondary btn-sm rounded-circle"
+      (click)="decrementQuantity()"
+    >
       <i class="fa fa-minus" aria-hidden="true"></i>
     </button>
     <span class="mx-3">{{ cartProductQuantity }}</span>
-    <button class="btn  btn-outline-dark btn-sm" (click)="incrementQuantity()">
+    <button
+      class="btn  btn-outline-secondary btn-sm rounded-circle"
+      (click)="incrementQuantity()"
+    >
       <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
   `,
