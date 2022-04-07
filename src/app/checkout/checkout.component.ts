@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CartService } from '../core/services/cart.service';
 import { Cart, CartProduct } from '../core/types/Cart';
 import { Observable, of } from 'rxjs';
+import { CheckoutService } from './services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,14 +19,17 @@ export class CheckoutComponent implements OnInit {
 
   cart$: Observable<Cart> = of();
 
-  constructor(public cartService: CartService) {}
+  constructor(
+    public cartService: CartService,
+    public checkoutService: CheckoutService
+  ) {}
 
   ngOnInit(): void {
     this.cart$ = this.cartService.getCart().asObservable();
   }
 
   submitCheckoutForm() {
-    console.log(this.checkoutForm);
+    this.checkoutService.placeOrder(this.checkoutForm.value);
   }
 
   get name() {
