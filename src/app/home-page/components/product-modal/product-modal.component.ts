@@ -17,8 +17,4 @@ export class ProductModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
-  additemToCart() {
-    this.cartService.addItemToCart(this.product as CartProduct);
-  }
 }
