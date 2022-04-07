@@ -7,6 +7,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
+  initialCart: Cart = {
+    totalCartItems: 0,
+    totalCartPrice: 0,
+    cartProducts: [],
+  };
   cart: Cart = { totalCartItems: 0, totalCartPrice: 0, cartProducts: [] };
 
   cartSubject$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>(this.cart);
@@ -74,6 +79,12 @@ export class CartService {
 
   getCart(): BehaviorSubject<Cart> {
     return this.cartSubject$;
+  }
+
+  clearCart(): void {
+    this.cart = this.initialCart;
+    this.cartSubject$.next(this.cart);
+    this.initializeCartInLocalStorage();
   }
 
   private _updateProductInCart(

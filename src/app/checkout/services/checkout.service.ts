@@ -1,9 +1,17 @@
+import { RouterService } from './../../core/services/router.service';
 import { Injectable } from '@angular/core';
 import { CartService } from 'src/app/core/services/cart.service';
 import { Cart, CartProduct } from 'src/app/core/types/Cart';
 // import { vfs, fonts, createPdf } from 'pdfmake/build/pdfmake';
 // import * as pdfMake from 'pdfmake/build/pdfmake';
-import { PdfMakeWrapper, Columns, Txt, Table } from 'pdfmake-wrapper';
+import {
+  PdfMakeWrapper,
+  Columns,
+  Txt,
+  Table,
+  Line,
+  Canvas,
+} from 'pdfmake-wrapper';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { CurrencyPipe } from '@angular/common';
 
@@ -16,20 +24,18 @@ export class CheckoutService {
 
   constructor(
     private _cartService: CartService,
+    private _routerService: RouterService,
     private _currencyPipe: CurrencyPipe
   ) {
     (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
-  uid() {
-    let a = new Uint32Array(3);
-    window.crypto.getRandomValues(a);
-    return (
-      performance.now().toString(36) +
-      Array.from(a)
-        .map((A) => A.toString(36))
-        .join('')
-    ).replace(/\./g, '');
+  generateOrderNumber() {
+    let now = Date.now().toString(); // '1492341545873'
+    // pad with extra random digit
+    now += now + Math.floor(Math.random() * 10);
+    // format
+    return [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('');
   }
 
   placeOrder(checkoutInformation: {
@@ -38,9 +44,9 @@ export class CheckoutService {
     paymentMethod: string;
   }) {
     this.cart = this._cartService.getCartFromLocalStorage();
-    // this.cart;
     const pdf = new PdfMakeWrapper();
-    const orderId = this.uid();
+    const orderId = this.generateOrderNumber();
+
     pdf.info({
       title: `Order No. ${orderId}`,
       subject: 'Order Receipt',
@@ -49,15 +55,24 @@ export class CheckoutService {
     });
 
     pdf.add({
+      text: `RMART`,
+      margin: [20, 0, 20, 20],
+      style: 'header',
+    });
+
+    pdf.add('\n');
+
+    pdf.add({
       text: `Order No. ${orderId}`,
       margin: [0, 0, 0, 20],
       style: 'header',
     });
 
+    pdf.add('\n');
+
     pdf.add({
       text: 'Shipping Information',
       style: 'miniHeader',
-      margin: [10, 0],
     });
 
     pdf.add('\n');
@@ -71,6 +86,7 @@ export class CheckoutService {
     ]).columnGap(10).end;
 
     pdf.add(nameColumn);
+
     pdf.add('\n');
 
     const addressColumn = new Columns([
@@ -88,7 +104,6 @@ export class CheckoutService {
     pdf.add({
       text: 'Payment Information',
       style: 'miniHeader',
-      margin: [10, 0],
     });
 
     const paymentMethodColumn = new Columns([
@@ -108,7 +123,6 @@ export class CheckoutService {
     pdf.add({
       text: 'Items Summary',
       style: 'miniHeader',
-      margin: [10, 0],
     });
 
     pdf.add('\n');
@@ -117,8 +131,9 @@ export class CheckoutService {
       [
         { text: 'Product Id', style: 'boldText' },
         { text: 'Item', style: 'boldText' },
+        { text: 'Unit Price', style: 'boldText' },
         { text: 'Quantity', style: 'boldText' },
-        { text: 'Price', style: 'boldText' },
+        { text: 'Total Price', style: 'boldText' },
       ],
     ];
 
@@ -127,6 +142,7 @@ export class CheckoutService {
         let row = [];
         row.push(cartProduct.id);
         row.push(cartProduct.name);
+        row.push(cartProduct.price);
         row.push(cartProduct.cartProductQuantity);
         row.push(
           this._currencyPipe.transform(
@@ -143,14 +159,70 @@ export class CheckoutService {
     let rowsToBePrinted = [...rows, ...cartDataArray];
 
     const itemsTable = new Table(rowsToBePrinted).widths([
-      125, 125, 125, 125,
+      100, 100, 100, 100, 100,
     ]).end;
 
     pdf.add(itemsTable);
 
     pdf.add('\n');
 
+    pdf.add({
+      text: 'Delivery Information',
+      style: 'miniHeader',
+    });
+
+    pdf.add('\n');
+
+    const deliveryInformationColumn = new Columns([
+      'Delivery',
+      {
+        text: 'Free',
+        style: 'boldText',
+      },
+    ]).columnGap(10).end;
+
+    pdf.add(deliveryInformationColumn);
+
+    pdf.add('\n');
+    pdf.add('\n');
+
+    const totalChargesColumn = new Columns([
+      {
+        text: 'Total Charges',
+        style: 'boldBigText',
+      },
+      {
+        text: this._currencyPipe.transform(
+          this.cart.totalCartPrice,
+          'INR',
+          'symbol',
+          '1.0-0'
+        ),
+        style: 'boldBigText',
+      },
+    ]).columnGap(10).end;
+
+    pdf.add(totalChargesColumn);
+
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add('\n');
+
+    pdf.add({
+      text: 'Thank you for shopping with us',
+      style: 'thankyouNote',
+    });
+
+    pdf.add('\n');
+
+    pdf.add(new Canvas([new Line([20, 60], [500, 60]).end]).end);
+
     pdf.styles({
+      brand: {
+        bold: true,
+        fontSize: 22,
+        alignment: 'center',
+      },
       header: {
         bold: true,
         fontSize: 20,
@@ -163,9 +235,20 @@ export class CheckoutService {
       boldText: {
         bold: true,
       },
+      boldBigText: {
+        bold: true,
+        fontSize: 18,
+      },
+      thankyouNote: {
+        italics: true,
+        alignment: 'center',
+      },
     });
 
-    pdf.create().open();
-    // createPdf(documentDefinition).open();
+    pdf.create().download(`RMart-${orderId}`, () => {
+      this._cartService.clearCart();
+      alert('Order Placed Successfully. Taking you back to shopping');
+      this._routerService.routeToHomePage();
+    });
   }
 }
