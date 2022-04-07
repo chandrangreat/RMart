@@ -61,20 +61,13 @@ export class CartService {
   }
 
   addItemToCart(product: CartProduct): void {
-    const filteredCartProducts: Array<CartProduct> =
-      this.cart.cartProducts.filter((item) => item.id === product.id);
-    if (filteredCartProducts.length > 0) {
-      const cartProduct = filteredCartProducts[0];
-      this.updateCart(cartProduct, 'INCREMENT');
-    } else {
-      product.cartProductPrice = product.price;
-      product.cartProductQuantity = 1;
-      this.cart.cartProducts.push(product);
-      this.cart.totalCartItems = this.cart.totalCartItems + 1;
-      this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
-      this.cartSubject$.next(this.cart);
-      this.updateCartInLocalStorage();
-    }
+    product.cartProductPrice = product.price;
+    product.cartProductQuantity = 1;
+    this.cart.cartProducts.push(product);
+    this.cart.totalCartItems = this.cart.totalCartItems + 1;
+    this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
+    this.cartSubject$.next(this.cart);
+    this.updateCartInLocalStorage();
   }
 
   getCart(): BehaviorSubject<Cart> {
