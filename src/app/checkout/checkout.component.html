@@ -1,1 +1,72 @@
-<p>checkout works!</p>
+<app-header></app-header>
+<ng-container *ngIf="cart$ | async as cart">
+  <form [formGroup]="checkoutForm" (ngSubmit)="submitCheckoutForm()">
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-8">
+          <div class="checkout-header">
+            <h3>Checkout</h3>
+          </div>
+          <div class="checkout-form-container my-4">
+            <h5 class="mb-3">Shipping Information</h5>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label><span class="invalid-server-feedback"
+                *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                *required
+              </span>
+              <input required type="text" name="name" formControlName="name" class="form-control" id="name"
+                [ngClass]="{'is-invalid': name?.invalid && (name?.dirty || name?.touched)}" />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label><span class="invalid-server-feedback"
+                *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+                *required
+              </span>
+              <input required type="text" name="address" formControlName="address" class="form-control" id="address"
+                [ngClass]="{'is-invalid': address?.invalid && (address?.dirty || address?.touched)}" />
+            </div>
+            <h5 class="mt-5 mb-3">Payment Information</h5>
+            <div class="form-check">
+              <input class="form-check-input" formControlName="paymentMethod" type="radio" name="paymentMethod"
+                value="Cash On Delivery" checked>
+              <label class="form-check-label fw-bold" for="exampleRadios1">
+                Cash On Delivery
+              </label>
+              <p>Currently only cash on delivery available.</p>
+            </div>
+            <h5 class="mt-5 mb-3">Items Summary ({{cart.totalCartItems}} Items)</h5>
+            <div class="items-summary-section">
+              <ng-container *ngFor="let cartProduct of cart.cartProducts">
+                <app-cart-item [cartProduct]="cartProduct" [isDisplayedAsItemSummary]="false"></app-cart-item>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="cart-total-section p-3 my-5">
+            <div class="cart-total-header py-2 my-2">
+              ORDER DETAILS
+            </div>
+            <div class="cart-total-price-details my-4">
+              <div class="d-flex justify-content-between my-3">
+                <span>Price ({{cart.totalCartItems}} Items)</span><span>{{cart.totalCartPrice | currency:
+                  'INR':'symbol':'1.0-0'}}</span>
+              </div>
+              <div class="d-flex justify-content-between my-3">
+                <span>Delivery Charges</span><span>FREE</span>
+              </div>
+            </div>
+            <div class="cart-total-price d-flex justify-content-between my-3 fs-5 fw-bold">
+              <span>Total Amount</span>
+              <span>{{cart.totalCartPrice | currency:'INR':'symbol':'1.0-0'}}</span>
+            </div>
+            <div class="cart-total-place-order mt-5">
+              <button [disabled]="checkoutForm.invalid" class="btn btn-primary btn-lg place-order-button">Place
+                Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
