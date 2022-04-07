@@ -12,6 +12,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     <span class="mx-3">{{ cartProductQuantity }}</span>
     <button
       class="btn  btn-outline-secondary btn-sm rounded-circle"
+      [disabled]="disableIncrementButton"
       (click)="incrementQuantity()"
     >
       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -21,6 +22,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CartQuantityComponent implements OnInit {
   @Input() cartProductQuantity?: number = 0;
+  @Input() disableIncrementButton?: boolean = false;
   @Output() updateCartQuantityEvent: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
