@@ -38,8 +38,8 @@
             <span>{{cart.totalCartPrice | currency:'INR':'symbol':'1.0-0'}}</span>
           </div>
           <div class="cart-total-place-order mt-5">
-            <button [disabled]="cart.totalCartItems===0"
-              class="btn btn-primary btn-lg checkout-button">Checkout</button>
+            <button [disabled]="cart.totalCartItems===0" class="btn btn-primary btn-lg checkout-button"
+              (click)="goToCheckout()">Checkout</button>
           </div>
         </div>
       </div>

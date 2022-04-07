@@ -18,4 +18,8 @@ export class RouterService {
   public routeToCart() {
     this._router.navigate(['/cart']);
   }
+
+  public routeToCheckout() {
+    this._router.navigate(['/checkout']);
+  }
 }
