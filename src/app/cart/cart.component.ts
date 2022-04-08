@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CartService } from '../core/services/cart.service';
 import { RouterService } from '../core/services/router.service';
-import { Cart, CartProduct } from '../core/types/Cart';
+import { Cart } from '../core/types/Cart';
+import { Product } from '../core/types/Product';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,7 @@ export class CartComponent implements OnInit {
     this.cart$ = this.cartService.getCart().asObservable();
   }
 
-  updateCartQuantity(updateCart: { cartProduct: CartProduct; action: string }) {
+  updateCartQuantity(updateCart: { cartProduct: Product; action: string }) {
     this.cartService.updateCart(updateCart.cartProduct, updateCart.action);
   }
 

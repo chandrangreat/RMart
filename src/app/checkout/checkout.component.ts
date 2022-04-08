@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CartService } from '../core/services/cart.service';
-import { Cart, CartProduct } from '../core/types/Cart';
+import { Cart } from '../core/types/Cart';
 import { Observable, of } from 'rxjs';
 import { CheckoutService } from './services/checkout.service';
 

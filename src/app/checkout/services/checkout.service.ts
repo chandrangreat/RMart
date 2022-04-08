@@ -1,7 +1,7 @@
 import { RouterService } from './../../core/services/router.service';
 import { Injectable } from '@angular/core';
 import { CartService } from 'src/app/core/services/cart.service';
-import { Cart, CartProduct } from 'src/app/core/types/Cart';
+import { Cart } from 'src/app/core/types/Cart';
 // import { vfs, fonts, createPdf } from 'pdfmake/build/pdfmake';
 // import * as pdfMake from 'pdfmake/build/pdfmake';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'pdfmake-wrapper';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { CurrencyPipe } from '@angular/common';
+import { Product } from 'src/app/core/types/Product';
 
 @Injectable({
   providedIn: 'root',
@@ -137,24 +138,22 @@ export class CheckoutService {
       ],
     ];
 
-    let cartDataArray = this.cart.cartProducts.map(
-      (cartProduct: CartProduct) => {
-        let row = [];
-        row.push(cartProduct.id);
-        row.push(cartProduct.name);
-        row.push(cartProduct.price);
-        row.push(cartProduct.cartProductQuantity);
-        row.push(
-          this._currencyPipe.transform(
-            cartProduct.cartProductPrice,
-            'INR',
-            'symbol',
-            '1.0-0'
-          )
-        );
-        return row;
-      }
-    );
+    let cartDataArray = this.cart.cartProducts.map((cartProduct: Product) => {
+      let row = [];
+      row.push(cartProduct.id);
+      row.push(cartProduct.name);
+      row.push(cartProduct.price);
+      row.push(cartProduct.cartProductQuantity);
+      row.push(
+        this._currencyPipe.transform(
+          cartProduct.cartProductPrice,
+          'INR',
+          'symbol',
+          '1.0-0'
+        )
+      );
+      return row;
+    });
 
     let rowsToBePrinted = [...rows, ...cartDataArray];
 
