@@ -6,5 +6,7 @@ export interface Product {
   price: number;
   img: string;
   categoryId: string;
+  cartProductPrice: number;
+  cartProductQuantity: number;
   userId?: number;
 }
