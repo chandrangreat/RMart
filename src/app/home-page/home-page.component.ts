@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Product } from '../core/types/Product';
-import { ProductService } from './services/product.service';
+import { ProductService } from '../core/services/product.service';
 
 @Component({
   selector: 'app-home-page',

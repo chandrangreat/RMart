@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { Product } from '../../core/types/Product';
+import { Product } from '../types/Product';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ProductService {
   productsSubject$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(
     []
