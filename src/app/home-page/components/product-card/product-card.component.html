@@ -6,7 +6,7 @@
       <h5 class="card-title">{{product?.name}}</h5>
       <p class="card-text">{{product?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
       <div *ngIf="showAddToCart ; else cartQuantityBlock">
-        <button [disabled]="disableAddToCartButton" class="btn btn-primary" (click)="additemToCart()">Add To
+        <button [disabled]="disableAddToCartButton" class="btn btn-secondary" (click)="additemToCart()">Add To
           Cart</button>
         <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
       </div>
