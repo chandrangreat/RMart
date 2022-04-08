@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { Product } from '../types/Product';
 import { HttpClient } from '@angular/common/http';
@@ -40,5 +40,38 @@ export class ProductService {
       this.productsSubject$.next(this.products);
     }
     return this.productsSubject$;
+  }
+
+  updateProductQuantity(cartProduct: Product, cartAction: string) {
+    if (cartProduct) {
+      if (cartAction === 'DECREMENT') {
+        cartProduct.quantity = cartProduct.quantity - 1;
+        cartProduct.cartProductQuantity = cartProduct.cartProductQuantity + 1;
+        cartProduct.cartProductPrice =
+          cartProduct.cartProductPrice + cartProduct.price;
+      } else {
+        cartProduct.quantity = cartProduct.quantity + 1;
+        cartProduct.cartProductQuantity = cartProduct.cartProductQuantity - 1;
+        cartProduct.cartProductPrice =
+          cartProduct.cartProductPrice - cartProduct.price;
+      }
+      let updatedProduct = cartProduct;
+      return this._http
+        .put(`http://localhost:3000/products/${cartProduct.id}`, updatedProduct)
+        .pipe(
+          tap(() => {
+            const products = this.products.map((product) => {
+              if (product.id === cartProduct.id) {
+                return updatedProduct;
+              }
+              return product;
+            });
+            this.products = products;
+            this.productsSubject$.next(products);
+          })
+        );
+    } else {
+      throw new Error('Product Not Found');
+    }
   }
 }

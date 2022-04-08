@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Cart, CartProduct } from '../types/Cart';
+import { Cart } from '../types/Cart';
 import { Product } from '../types/Product';
 import { BehaviorSubject } from 'rxjs';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class CartService {
 
   cartSubject$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>(this.cart);
 
-  constructor() {
+  constructor(private _productService: ProductService) {
     if (!localStorage.getItem('cart')) {
       this.initializeCartInLocalStorage();
     } else {
@@ -38,36 +39,49 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
-  updateCart(product: CartProduct, cartAction: string = 'INCREMENT'): void {
+  updateCart(product: Product, cartAction: string = 'INCREMENT'): void {
     if (cartAction === 'INCREMENT') {
-      product.cartProductPrice = product.cartProductPrice + product.price;
-      product.cartProductQuantity = product.cartProductQuantity + 1;
-      this.cart.cartProducts = this._updateProductInCart(product);
-      // this.cart.totalCartItems = this.cart.totalCartItems + 1;
-      this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
+      this._productService
+        .updateProductQuantity(product, 'DECREMENT')
+        .subscribe(() => {
+          // product.cartProductPrice = product.cartProductPrice + product.price;
+          // product.cartProductQuantity = product.cartProductQuantity + 1;
+          this.cart.cartProducts = this._updateProductInCart(product);
+          this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
+          this.cartSubject$.next(this.cart);
+          this.updateCartInLocalStorage();
+        });
     } else {
-      product.cartProductPrice = product.cartProductPrice - product.price;
-      product.cartProductQuantity = product.cartProductQuantity - 1;
-      if (product.cartProductQuantity !== 0) {
-        this.cart.cartProducts = this._updateProductInCart(product);
-      } else {
-        this.cart.cartProducts = this._updateProductInCart(product, true);
-        this.cart.totalCartItems = this.cart.totalCartItems - 1;
-      }
-      this.cart.totalCartPrice = this.cart.totalCartPrice - product.price;
+      this._productService
+        .updateProductQuantity(product, 'INCREMENT')
+        .subscribe(() => {
+          // product.cartProductPrice = product.cartProductPrice - product.price;
+          // product.cartProductQuantity = product.cartProductQuantity - 1;
+          if (product.cartProductQuantity !== 0) {
+            this.cart.cartProducts = this._updateProductInCart(product);
+          } else {
+            this.cart.cartProducts = this._updateProductInCart(product, true);
+            this.cart.totalCartItems = this.cart.totalCartItems - 1;
+          }
+          this.cart.totalCartPrice = this.cart.totalCartPrice - product.price;
+          this.cartSubject$.next(this.cart);
+          this.updateCartInLocalStorage();
+        });
     }
-    this.cartSubject$.next(this.cart);
-    this.updateCartInLocalStorage();
   }
 
-  addItemToCart(product: CartProduct): void {
-    product.cartProductPrice = product.price;
-    product.cartProductQuantity = 1;
-    this.cart.cartProducts.push(product);
-    this.cart.totalCartItems = this.cart.totalCartItems + 1;
-    this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
-    this.cartSubject$.next(this.cart);
-    this.updateCartInLocalStorage();
+  addItemToCart(product: Product): void {
+    this._productService
+      .updateProductQuantity(product, 'DECREMENT')
+      .subscribe(() => {
+        product.cartProductPrice = product.price;
+        product.cartProductQuantity = 1;
+        this.cart.cartProducts.push(product);
+        this.cart.totalCartItems = this.cart.totalCartItems + 1;
+        this.cart.totalCartPrice = this.cart.totalCartPrice + product.price;
+        this.cartSubject$.next(this.cart);
+        this.updateCartInLocalStorage();
+      });
   }
 
   getCart(): BehaviorSubject<Cart> {
@@ -81,9 +95,9 @@ export class CartService {
   }
 
   private _updateProductInCart(
-    product: CartProduct,
+    product: Product,
     removeProduct?: boolean
-  ): CartProduct[] {
+  ): Product[] {
     if (removeProduct) {
       return this.cart.cartProducts.filter(
         (cartProduct) => cartProduct.id !== product.id
