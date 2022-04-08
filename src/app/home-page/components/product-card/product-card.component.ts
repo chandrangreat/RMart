@@ -3,7 +3,6 @@ import { Product } from 'src/app/core/types/Product';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { CartService } from '../../../core/services/cart.service';
-import { CartProduct } from '../../../core/types/Cart';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,10 +12,11 @@ import { Subscription } from 'rxjs';
 })
 export class ProductCardComponent implements OnInit, OnDestroy {
   @Input() product?: Product;
-  cartProduct: CartProduct = {} as CartProduct;
+  cartProduct: Product = {} as Product;
   showAddToCart: boolean = true;
   bsModalRef?: BsModalRef;
   cartServiceSubscription: Subscription | undefined;
+  disableAddToCartButton: boolean = false;
 
   constructor(
     private modalService: BsModalService,
@@ -33,8 +33,10 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
         if (!this.cartProduct || this.cartProduct.cartProductQuantity === 0) {
           this.showAddToCart = true;
+          this.checkQuantityAndDisableButton();
         } else {
           this.showAddToCart = false;
+          this.checkQuantityAndDisableButton();
         }
       });
   }
@@ -53,7 +55,9 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   }
 
   additemToCart() {
-    this.cartService.addItemToCart(this.product as CartProduct);
+    if (this.product) {
+      this.cartService.addItemToCart(this.product);
+    }
   }
 
   updateCartProductQuantity(action: string) {
@@ -62,5 +66,13 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cartServiceSubscription?.unsubscribe();
+  }
+
+  checkQuantityAndDisableButton() {
+    if (this.product && this.product?.quantity === 0) {
+      this.disableAddToCartButton = true;
+    } else {
+      this.disableAddToCartButton = false;
+    }
   }
 }

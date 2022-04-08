@@ -5,12 +5,17 @@
     <div class="card-body">
       <h5 class="card-title">{{product?.name}}</h5>
       <p class="card-text">{{product?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
-      <button *ngIf="showAddToCart ; else cartQuantityBlock" class="btn btn-primary" (click)="additemToCart()">Add To
-        Cart</button>
+      <div *ngIf="showAddToCart ; else cartQuantityBlock">
+        <button [disabled]="disableAddToCartButton" class="btn btn-primary" (click)="additemToCart()">Add To
+          Cart</button>
+        <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
+      </div>
       <ng-template #cartQuantityBlock>
         <div class="cart-quantity-container">
           <app-cart-quantity (updateCartQuantityEvent)="updateCartProductQuantity($event)"
-            [cartProductQuantity]="cartProduct?.cartProductQuantity"></app-cart-quantity>
+            [cartProductQuantity]="cartProduct?.cartProductQuantity" [disableIncrementButton]="disableAddToCartButton">
+          </app-cart-quantity>
+          <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
         </div>
       </ng-template>
     </div>
