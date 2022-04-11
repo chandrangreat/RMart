@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Product } from '../core/types/Product';
 import { ProductService } from '../core/services/product.service';
+import { BsModalRef, ModalOptions, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-home-page',
@@ -24,6 +25,12 @@ export class HomePageComponent implements OnInit {
 
   products$: Subject<Array<Product>> = new Subject();
 
+  overlayProduct: Product = {} as Product;
+
+  bsModalRef?: BsModalRef;
+
+  @ViewChild('childModal', { static: false }) childModal?: ModalDirective;
+
   constructor(private _productService: ProductService) {}
 
   ngOnInit(): void {
@@ -34,5 +41,14 @@ export class HomePageComponent implements OnInit {
     this.products$ = this._productService.getProductsByCategory(category.id);
     this.selectedCategory = category.id;
     this.selectedCategoryTitle = category.name;
+  }
+
+  openOverlayWithProduct(product: Product) {
+    this.overlayProduct = product;
+    this.childModal?.show();
+  }
+
+  hideChildModal(): void {
+    this.childModal?.hide();
   }
 }

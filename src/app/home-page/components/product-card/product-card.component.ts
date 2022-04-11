@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Product } from 'src/app/core/types/Product';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
@@ -12,6 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProductCardComponent implements OnInit, OnDestroy {
   @Input() product?: Product;
+  @Output() openOverlayWithProductEvent: EventEmitter<any> = new EventEmitter();
   cartProduct: Product = {} as Product;
   showAddToCart: boolean = true;
   bsModalRef?: BsModalRef;
@@ -74,5 +82,9 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     } else {
       this.disableAddToCartButton = false;
     }
+  }
+
+  openOverlayWithProduct() {
+    this.openOverlayWithProductEvent.emit(this.product);
   }
 }
