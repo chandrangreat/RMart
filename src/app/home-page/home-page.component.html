@@ -36,10 +36,11 @@
 </div>
 <app-overlay bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
   aria-labelledby="dialog-child-name" (modalCloseEvent)="hideChildModal()">
-  <img [src]="overlayProduct?.img" class="card-img-top" [alt]="overlayProduct?.name">
+  <ng-template productInfo></ng-template>
+  <!-- <img [src]="overlayProduct?.img" class="card-img-top" [alt]="overlayProduct?.name">
   <div class="card-body">
     <h5 class="card-title">{{overlayProduct?.name}}</h5>
     <p class="card-text">{{overlayProduct?.description}}</p>
     <p class="card-text">{{overlayProduct?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
-  </div>
+  </div> -->
 </app-overlay>

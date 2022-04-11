@@ -10,6 +10,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductModalComponent } from './components/product-modal/product-modal.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientModule,
     SharedModule,
     ModalModule.forRoot(),
+    CoreModule,
   ],
 })
 export class HomePageModule {}

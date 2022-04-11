@@ -5,10 +5,23 @@ import { RouterModule } from '@angular/router';
 import { CartQuantityComponent } from './components/cart-quantity/cart-quantity.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { OverlayComponent } from './components/overlay/overlay.component';
+import { ProductContentComponent } from './components/product-content/product-content.component';
 
 @NgModule({
-  declarations: [HeaderComponent, CartQuantityComponent, CartItemComponent, OverlayComponent],
+  declarations: [
+    HeaderComponent,
+    CartQuantityComponent,
+    CartItemComponent,
+    OverlayComponent,
+    ProductContentComponent,
+  ],
   imports: [CommonModule, RouterModule],
-  exports: [HeaderComponent, CartQuantityComponent, CartItemComponent, OverlayComponent],
+  exports: [
+    HeaderComponent,
+    CartQuantityComponent,
+    CartItemComponent,
+    OverlayComponent,
+    ProductContentComponent,
+  ],
 })
 export class SharedModule {}
