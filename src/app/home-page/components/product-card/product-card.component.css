@@ -13,3 +13,7 @@
 .cart-quantity-container {
   padding: 4px;
 }
+
+.card-body-height {
+  height: 150px;
+}

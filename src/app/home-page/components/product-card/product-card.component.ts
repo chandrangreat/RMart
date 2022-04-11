@@ -1,3 +1,6 @@
+import { CartQuantityComponent } from './../../../shared/components/cart-quantity/cart-quantity.component';
+import { AddToCartButtonComponent } from './../../../shared/components/add-to-cart-button/add-to-cart-button.component';
+import { AddToCartDirective } from './../../../core/directives/add-to-cart.directive';
 import {
   Component,
   Input,
@@ -5,6 +8,7 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
+  ViewChild,
 } from '@angular/core';
 import { Product } from 'src/app/core/types/Product';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
@@ -25,6 +29,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   bsModalRef?: BsModalRef;
   cartServiceSubscription: Subscription | undefined;
   disableAddToCartButton: boolean = false;
+  @ViewChild(AddToCartDirective, { static: true })
+  addToCart!: AddToCartDirective;
 
   constructor(
     private modalService: BsModalService,
@@ -35,16 +41,40 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     this.cartServiceSubscription = this.cartService.cartSubject$
       .asObservable()
       .subscribe((cart) => {
+        const viewContainerRef = this.addToCart.viewContainerRef;
+        viewContainerRef.clear();
         this.cartProduct = cart.cartProducts.filter(
           (cartProduct) => cartProduct.id === this.product?.id
         )[0];
 
         if (!this.cartProduct || this.cartProduct.cartProductQuantity === 0) {
-          this.showAddToCart = true;
+          const componentRef =
+            viewContainerRef.createComponent<AddToCartButtonComponent>(
+              AddToCartButtonComponent
+            );
           this.checkQuantityAndDisableButton();
+          componentRef.instance.disableAddToCartButton =
+            this.disableAddToCartButton;
+          componentRef.instance.addItemToCartEvent.subscribe(() => {
+            this.additemToCart();
+          });
+          // this.showAddToCart = true;
         } else {
-          this.showAddToCart = false;
+          const componentRef =
+            viewContainerRef.createComponent<CartQuantityComponent>(
+              CartQuantityComponent
+            );
+          // this.showAddToCart = false;
           this.checkQuantityAndDisableButton();
+          componentRef.instance.disableIncrementButton =
+            this.disableAddToCartButton;
+          componentRef.instance.cartProductQuantity =
+            this.cartProduct.cartProductQuantity;
+          componentRef.instance.updateCartQuantityEvent.subscribe(
+            (action: string) => {
+              this.updateCartProductQuantity(action);
+            }
+          );
         }
       });
   }

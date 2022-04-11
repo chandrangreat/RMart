@@ -6,6 +6,7 @@ import { CartQuantityComponent } from './components/cart-quantity/cart-quantity.
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { OverlayComponent } from './components/overlay/overlay.component';
 import { ProductContentComponent } from './components/product-content/product-content.component';
+import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ProductContentComponent } from './components/product-content/product-co
     CartItemComponent,
     OverlayComponent,
     ProductContentComponent,
+    AddToCartButtonComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
