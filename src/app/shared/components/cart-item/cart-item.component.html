@@ -1,0 +1,22 @@
+<div class="cart-item d-flex py-3">
+  <div class="cart-product-image">
+    <img [src]="cartProduct?.img" width="200" height="200" class="img-thumbnail" [alt]="cartProduct?.name">
+  </div>
+  <div class="cart-product-details">
+    <h5>{{cartProduct?.name}}</h5>
+    <span class="fw-bold">{{cartProduct?.price | currency: 'INR':'symbol':'1.0-0'}}</span>
+    <p class="text-danger" *ngIf="disableQuantityButton && isDisplayedAsItemSummary">Sold Out!</p>
+  </div>
+  <div *ngIf="isDisplayedAsItemSummary" class="cart-controls">
+    <app-cart-quantity (updateCartQuantityEvent)="updateCartProductQuantity($event)"
+      [cartProductQuantity]="cartProduct?.cartProductQuantity" [disableIncrementButton]="disableQuantityButton">
+    </app-cart-quantity>
+  </div>
+  <div *ngIf="!isDisplayedAsItemSummary" class="cart-controls">
+    <span class="mx-3">QTY: {{cartProduct?.cartProductQuantity}}</span>
+  </div>
+
+  <div class="cart-product-total-price">
+    <span class="fw-bold">{{cartProduct?.cartProductPrice| currency: 'INR':'symbol':'1.0-0'}}</span>
+  </div>
+</div>

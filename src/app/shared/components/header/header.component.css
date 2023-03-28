@@ -1,0 +1,10 @@
+.header-cart-button {
+  width: 120px;
+}
+.header-cart-button > * {
+  margin: 0 10px;
+}
+
+.header-cart-badge {
+  font-family: 'Montserrat', sans-serif;
+}

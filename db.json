@@ -1,0 +1,83 @@
+{
+  "users": [
+    {
+      "email": "rchandran@presidio.com",
+      "password": "$2a$10$PwjwQwEcZ7CqoIgqzVmlJ.RGlcSKUJEXFTixSKqgfoGRF83S2ksj.",
+      "id": 1
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Cricket Shoes",
+      "description": "Cricket shoes with lace up closure",
+      "quantity": 5,
+      "price": 2500,
+      "categoryId": "shoes",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2679&q=80",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "name": "Formal Shirt",
+      "description": "Formal shirt with lace up closure",
+      "quantity": 5,
+      "price": 500,
+      "categoryId": "shirts",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1365&q=80",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "name": "Formal Pants",
+      "description": "Formal pants with lace up closure",
+      "quantity": 5,
+      "price": 4000,
+      "categoryId": "pants",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1297&q=80",
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "name": "Jeans",
+      "description": "Jeans with lace up closure",
+      "quantity": 5,
+      "price": 400,
+      "categoryId": "jeans",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1582552938357-32b906df40cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=800",
+      "userId": 1
+    },
+    {
+      "id": 5,
+      "name": "Socks",
+      "description": "Socks with lace up closure",
+      "quantity": 5,
+      "price": 500,
+      "categoryId": "socks",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1632944968588-3ec2870641ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+      "userId": 1
+    },
+    {
+      "id": 6,
+      "name": "Jackets",
+      "description": "Evolite offers a stylish range of Loafers,Sports & Casual Shoes by keeping the market trend in mind. These Loafers has a durable and comfortable sole to keep the foot comfortable. \n\n About the Product : Designed For Fitness-Conscious Men, With an excellent design, this pair of shoes is an elegant choice for all fashion-savvy men.Complete your smart outfit matching these shoes with a slim shirt and a pair of trousers.The sole promises great traction on the surface, thus promising ultimate comfort, whereas the perforated design is for added appeal. These Sports Shoes Offer Great Comfort, Cushioning And Stability. A Must-Have In Your Footwear Collection, These Sports Shoes Will Surely Help Improve Your Performance. Buy Today From Shopclues.com To Make A Style Statement.",
+      "quantity": 5,
+      "price": 600,
+      "categoryId": "jackets",
+      "cartProductPrice": 0,
+      "cartProductQuantity": 0,
+      "img": "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80",
+      "userId": 1
+    }
+  ]
+}

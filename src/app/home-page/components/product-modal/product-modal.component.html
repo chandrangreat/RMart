@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"></h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <img [src]="product?.img" class="card-img-top" [alt]="product?.name">
+  <div class="card-body">
+    <h5 class="card-title">{{product?.name}}</h5>
+    <p class="card-text">{{product?.description}}</p>
+    <p class="card-text">{{product?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
+  </div>

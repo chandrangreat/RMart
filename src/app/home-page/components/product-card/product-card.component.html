@@ -1,0 +1,28 @@
+<div class="product-card">
+  <div class="card" style="width: 18rem">
+    <img [src]="product?.img" class="card-img-top product-card-image" [alt]="product?.name"
+      (click)="openOverlayWithProduct()">
+    <div class="card-body card-body-height">
+      <h5 class="card-title">{{product?.name}}</h5>
+      <p class="card-text">{{product?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
+      <!-- Loading addToCart button or cart-quantity button dynamically -->
+      <div class="cart-quantity-container">
+        <ng-template addToCart></ng-template>
+        <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
+      </div>
+      <!-- <div *ngIf="showAddToCart ; else cartQuantityBlock">
+        <button [disabled]="disableAddToCartButton" class="btn btn-secondary" (click)="additemToCart()">Add To
+          Cart</button>
+        <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
+      </div>
+      <ng-template #cartQuantityBlock>
+        <div class="cart-quantity-container">
+          <app-cart-quantity (updateCartQuantityEvent)="updateCartProductQuantity($event)"
+            [cartProductQuantity]="cartProduct?.cartProductQuantity" [disableIncrementButton]="disableAddToCartButton">
+          </app-cart-quantity>
+          <span class="text-danger mx-2" *ngIf="disableAddToCartButton">Sold Out!</span>
+        </div>
+      </ng-template> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<app-header [showCart]="false"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center align-items-center login-form-container">
+      <div class="login-form-wrapper">
+        <h3 class="text-center my-3">Login</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input required type="email" name="email" formControlName="email" class="form-control" id="email"
+              [ngClass]="{'is-invalid': email?.invalid && (email?.dirty || email?.touched)}" />
+            <div class="my-2 invalid-server-feedback" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+              Invalid email address
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input required type="password" name="password" formControlName="password" class="form-control"
+              id="password" [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || password?.touched)}" />
+            <div class="my-2 invalid-server-feedback"
+              *ngIf="password?.errors && (password?.dirty || password?.touched)">
+              Password required
+            </div>
+          </div>
+          <button type="submit" class="btn btn-secondary">Login</button>
+          <div class="my-2 invalid-server-feedback" *ngIf="errorMessage">
+            {{errorMessage}}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

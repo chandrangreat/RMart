@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #F7F7F6;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.invalid-server-feedback{
+  color: red;
+}

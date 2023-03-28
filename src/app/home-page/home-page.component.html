@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <div class="category-container">
+        <div class="category-section-title d-flex justify-content-center align-items-center py-2 mx-3">
+          <h5>Categories</h5>
+        </div>
+        <div class="categories">
+          <ul class="py-3">
+            <ng-container *ngFor="let category of categories">
+              <li class="my-2 p-2" [ngClass]="{'selected': selectedCategory===category.id}"
+                (click)="loadProductsOfCategory(category)">{{category.name}}</li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="product-category-title p-3">
+        <h3>{{selectedCategoryTitle}}</h3>
+      </div>
+      <div class="products-container d-flex flex-wrap">
+        <ng-container *ngIf="(products$ | async) as products">
+          <ng-container *ngIf="products.length>0; else productsNotFound">
+            <app-product-card *ngFor="let product of products" [product]="product"
+              (openOverlayWithProductEvent)="openOverlayWithProduct($event)"></app-product-card>
+          </ng-container>
+          <ng-template #productsNotFound>
+            <p class="px-3">No products found</p>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<app-overlay bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-child-name" (modalCloseEvent)="hideChildModal()">
+  <ng-template productInfo></ng-template>
+  <!-- <img [src]="overlayProduct?.img" class="card-img-top" [alt]="overlayProduct?.name">
+  <div class="card-body">
+    <h5 class="card-title">{{overlayProduct?.name}}</h5>
+    <p class="card-text">{{overlayProduct?.description}}</p>
+    <p class="card-text">{{overlayProduct?.price | currency: 'INR':'symbol':'1.0-0'}}</p>
+  </div> -->
+</app-overlay>

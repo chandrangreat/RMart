@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #B0B2CC !important;">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/']">RMART</a>
+    <ng-container *ngIf="cart$ | async as cart">
+      <button *ngIf="showCart" class="btn btn-secondary header-cart-button" (click)="goToCart()">
+        <i class="fa fa-shopping-cart position-relative">
+          <span *ngIf="cart.totalCartItems > 0"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger header-cart-badge">
+            {{cart.totalCartItems}}
+            <span class="visually-hidden">cart items</span>
+          </span>
+        </i>
+        <span>Cart</span>
+        <!-- <span>{{cart.totalCartPrice | currency: 'INR':'symbol':'1.0-0'}}</span> -->
+      </button>
+    </ng-container>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>

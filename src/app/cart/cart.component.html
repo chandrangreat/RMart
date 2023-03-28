@@ -1,0 +1,48 @@
+<app-header [showCart]="false"></app-header>
+<div class="container my-4">
+  <ng-container *ngIf="cart$ | async as cart">
+    <div class="row">
+      <div class="col-8">
+        <div class="cart-header">
+          <h3>Cart</h3>
+        </div>
+        <div *ngIf="cart.totalCartItems > 0; else noitemsInCartBlock" class="cart-container mb-5">
+          <app-cart-item (updateCartQuantityEvent)="updateCartQuantity($event)" [cartProduct]="cartProduct"
+            *ngFor="let cartProduct of cart.cartProducts"></app-cart-item>
+        </div>
+        <ng-template #noitemsInCartBlock>
+          <div class="no-items-in-cart d-flex align-items-center justify-content-center">
+            <div class="text-center">
+              <h3>There are no items in the cart</h3>
+              <a [routerLink]="['/']">Check out our products</a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-4">
+        <div class="cart-total-section p-3 my-5">
+          <div class="cart-total-header py-2 my-2">
+            PRICE DETAILS
+          </div>
+          <div class="cart-total-price-details my-4">
+            <div class="d-flex justify-content-between my-3">
+              <span>Price ({{cart.totalCartItems}} Items)</span><span>{{cart.totalCartPrice | currency:
+                'INR':'symbol':'1.0-0'}}</span>
+            </div>
+            <div class="d-flex justify-content-between my-3">
+              <span>Delivery Charges</span><span>FREE</span>
+            </div>
+          </div>
+          <div class="cart-total-price d-flex justify-content-between my-3 fs-5 fw-bold">
+            <span>Total Amount</span>
+            <span>{{cart.totalCartPrice | currency:'INR':'symbol':'1.0-0'}}</span>
+          </div>
+          <div class="cart-total-place-order mt-5">
+            <button [disabled]="cart.totalCartItems===0" class="btn btn-secondary btn-lg checkout-button"
+              (click)="goToCheckout()">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
